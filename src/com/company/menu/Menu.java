@@ -2,54 +2,36 @@ package com.company.menu;
 
 
 import com.company.Category;
-import com.company.Product;
 import com.company.User;
 import com.company.helper.Helper;
+import com.company.helper.Loading;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import static com.company.Main.fileCategory;
-import static com.company.Main.fileUser;
 
 public class Menu {
 
-    private String file;
-    private ArrayList<Product> products;
 
     private static String Menu =
             "1 - Авторизация\n" +
             "2 - Каталог товара\n" +
             "0 - Выход";
 
-    private static String BasketMenu = "Выберете действие:\n" +
-            "1 - Положить товар в корзину\n" +
-            "2 - Отобразить корзину\n" +
-            "3 - Редактировать корзину\n" +
-            "4 - Удалить товар\n" +
-            "5 - Купить все\\n\" +" +
-            "0 - Вернуться в каталог";
-
-    public Menu (String file, ArrayList<Product> products) {
-        this.file = file;
-        this.products = products;
-    }
-
     public static void goToMenu () {
-        ArrayList<User> users = User.initFromFile(fileUser);
-        menu(users);
+        menu(Loading.getUsers(), Loading.getCategories());
     }
 
-    public static void menu(ArrayList<User> users) {
+    private static void menu(ArrayList<User> users, ArrayList<Category> categories) {
         while (true) {
             System.out.println(Menu);
            switch (Helper.readInt()) {
                 case 1:
-                    Authorization.startAuthorizationMenu(users);
+                    Authorization.startAuthorizationMenu(users, categories);
                     break;
                 case 2:
                     System.out.println("Добро пожаловать в каталог!");
-                    Catalog.startCatalogMenu();
+                    Catalog.startCatalogMenu(categories);
                     break;
                 case 0:
                     System.exit(0);
@@ -58,18 +40,6 @@ public class Menu {
         }
     }
 
-    static void printCategory (ArrayList<Category> categories) {
-        int i=1;
-        for (Category c: categories) {
-            System.out.println(i+". "+ c.getName()+c);
-            i++;
-        }
-    }
-    public static Category getCatagory(ArrayList<Category> categories){
-        ArrayList <Product> products = Category.input();
-       Category category = new Category(Helper.readString(), products);
-        return category;
-    }
     public static ArrayList<Category> initFromFile(String file){
         ArrayList<Category> categories = new ArrayList<Category>();
         try {
@@ -92,11 +62,27 @@ public class Menu {
         }
     }
 
-
-    public static String getBasketMenu() {
-        return BasketMenu;
-    }
 }
+
+
+//    static void printCategory (ArrayList<Category> categories) {
+//        int i=1;
+//        for (Category c: categories) {
+//            System.out.println(i+". "+ c.getName()+c);
+//            i++;
+//        }
+//    }
+//    public static Category getCategory(ArrayList<Category> categories){
+//        ArrayList <Product> products = Category.input();
+//       Category category = new Category(Helper.readString(), products);
+//        return category;
+//    }
+
+
+//    public static String getBasketMenu() {
+//        return BasketMenu;
+//    }
+//}
 //    public static void menu(ArrayList<Category> categories, String file) {
 //        while (true) {
 //            System.out.println(Menu);
@@ -117,4 +103,3 @@ public class Menu {
 //                    break;
 //            }
 //        }
-//    }

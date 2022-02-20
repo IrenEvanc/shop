@@ -7,11 +7,13 @@ public class Product implements Serializable {
     private String name;
     private double price;
     private double rating;
+    private int number;
 
-    public  Product (String name, double price, double rating) {
+    public  Product (String name, double price, double rating, int number) {
         this.name = name;
         this.price = price;
         this.rating = rating;
+        this.number = number;
     }
 
     public Product () {}
@@ -20,17 +22,11 @@ public class Product implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public double getRating() {
         return rating;
@@ -40,8 +36,21 @@ public class Product implements Serializable {
         this.rating = rating;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
     @Override
     public String toString() {
-        return name;
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", rating=" + rating +
+                '}';
     }
+
+
 }

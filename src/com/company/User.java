@@ -10,16 +10,13 @@ public class User implements Serializable{
     private Basket basket;
     static int count = 0;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public User() {
+        this.login = new String();
+        this.password = new String();
         this.basket = new Basket();
         count++;
         }
 
-    public User () {
-        this.basket = new Basket();
-    }
 
     public String getLogin() {
         return login;
@@ -31,9 +28,7 @@ public class User implements Serializable{
     public Basket getBasket() {
         return basket;
     }
-//    public String getPassword() {
-//        return password.charAt(0) + "*****";
-//    }
+
     public String getPassword() {return password;}
     public void setPassword(String password) {
         this.password = password;
@@ -87,6 +82,3 @@ public class User implements Serializable{
                 '}';
     }
 }
-//    public void takeBasket(int number) {
-//        System.out.println(this.login + " взял " + number + " товаров.");
-//    }
