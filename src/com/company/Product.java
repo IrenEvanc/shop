@@ -7,6 +7,7 @@ public class Product implements Serializable {
     private String name;
     private double price;
     private double rating;
+    //кто такой этот намбер?0_0 откуда он тут взялся? 0_0 с чего бы товару кофе знать сколько его взяли ? 0_0
     private int number;
 
     public  Product (String name, double price, double rating, int number) {

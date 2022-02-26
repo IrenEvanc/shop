@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Basket implements  Serializable {
+    //Да и как будто рано их ещё называть приобретёнными, он же их ещё не купил, только в корзину положил
+    //а ещё большую путанницу это внесёт, когда будем смотреть историю заказов, то есть на самом деле приобретённые товары
     private ArrayList<Product> purchasedProducts;
 
      public Basket() {
@@ -14,6 +16,7 @@ public class Basket implements  Serializable {
         return purchasedProducts;
     }
 
+    //Пут продактС подразумевает что я их сюда много класть буду, а можно только один - нестыковочка
     public void putProducts(Product product) {
         this.purchasedProducts.add(product);
     }

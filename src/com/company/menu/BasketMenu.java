@@ -40,6 +40,7 @@ public class BasketMenu {
                 case 2:
                     editBasket(user, users);
                     break;
+                    //ну тут думаю ничего не надо комментировать)))
 //                case 3:
 //                    buyAll();
 //                    break;
@@ -56,6 +57,7 @@ public class BasketMenu {
     public static void editBasket(User user, ArrayList<User> users) {
         boolean isAction = true;
         System.out.println("");
+        //а перед тем как редактировать мне не надо чтоб на экран вывели собственно саму корзину?
         while (isAction) {
             System.out.println(EditBasketMenu);
             switch (Helper.readInt()) {
@@ -82,6 +84,7 @@ public class BasketMenu {
         Product product = products.get(i - 1);
         System.out.println("Введите желаемое количество товара");
         product.setNumber(Helper.readInt());
+        // Ой, а что это ты такое сделала? Да это же костыль) выкинь из продуктов намбер, очень срочно)
         System.out.println("Наименование выбранного товара: " + product.getName() + "   Цена:" + product.getPrice() + "   Количество:" + product.getNumber());
         user.putProductsInBasket(product);
         System.out.println("Хотите выбрать еще товар?");

@@ -21,7 +21,8 @@ public class Authorization {
     public static void startAuthorizationMenu(ArrayList<User> users, ArrayList<Category> categories) {
         AuthorizationUser(users, categories);
     }
-
+    // метод называется авторизация пользователя, а с него вдруг оказывается попадаем в какое-то меню 0_0
+    // не провалился бы в этот метод о таком подвохе даже и не подумал бы
     private static void AuthorizationUser(ArrayList<User> users, ArrayList<Category> categories) {
         boolean isAction = true;
         while (isAction) {
@@ -33,10 +34,12 @@ public class Authorization {
                         System.out.println("Добро пожаловать в каталог");
                         Catalog.startCatalogMenu(user, categories);
                     } else {
+                        //ПОГОДИТЕ-КА я нажал войти в систему, что-то пошло не так, логин не тот ввёл или ещё что, и мне просто открывает каталог товаров?
                         Catalog.startCatalogMenu(categories);
                     }
                     break;
                 case 2:
+                    //ну по идее этот метод должен вернуть мне этого пользователя, которого зарегистрировал, и для него продолжить сесисию будто он авторизовался
                     registration(users);
                     break;
                 case 0:

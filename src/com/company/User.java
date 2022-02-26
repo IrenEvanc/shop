@@ -34,6 +34,7 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    //опять ты говоришь, что кладёшь много продуктов, а на самом деле то всего один
     public void putProductsInBasket(Product product) {
         this.basket.putProducts(product);
     }
