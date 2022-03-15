@@ -1,30 +1,31 @@
 package com.company;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Basket implements  Serializable {
     //Да и как будто рано их ещё называть приобретёнными, он же их ещё не купил, только в корзину положил
     //а ещё большую путанницу это внесёт, когда будем смотреть историю заказов, то есть на самом деле приобретённые товары
-    private ArrayList<Product> purchasedProducts;
+    private HashMap<Product, Number> productsInBasket;
 
      public Basket() {
-        this.purchasedProducts = new ArrayList<>();
+        this.productsInBasket = new HashMap<>();
     }
 
-    public ArrayList<Product> getPurchasedProducts() {
-        return purchasedProducts;
-    }
 
     //Пут продактС подразумевает что я их сюда много класть буду, а можно только один - нестыковочка
-    public void putProducts(Product product) {
-        this.purchasedProducts.add(product);
+    public void putProduct(Product product, Number number) {
+        this.productsInBasket.put(product,number);
+    }
+
+    public HashMap<Product, Number> getProductsInBasket() {
+        return productsInBasket;
     }
 
     @Override
     public String toString() {
         return "Basket{" +
-                "purchasedProducts=" + purchasedProducts +
+                "productsInBasket=" + productsInBasket +
                 '}';
     }
 }
@@ -45,7 +46,7 @@ public class Basket implements  Serializable {
 //        return purchasedProducts;
 //    }
 //
-//    public void putProducts(Product product, int number) {
+//    public void putProduct(Product product, int number) {
 //        Basket basket =new Basket();
 //        basket(product, number);
 //    }

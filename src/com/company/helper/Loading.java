@@ -16,12 +16,12 @@ public final class Loading {
     public static ArrayList<Category> initialize() {
         ArrayList<Product> products = new ArrayList<>();
         ArrayList<Product> products1 = new ArrayList<>();
-        Product product1 = new Product("Молоко", 100, 3, 1);
-        Product product2 = new Product("Йогурт", 150, 3, 1);
-        Product product3 = new Product("Сыр   ", 250, 3, 1);
-        Product product4 = new Product("Свинина ", 550, 4, 1);
-        Product product5 = new Product("Курица  ", 450, 4, 1);
-        Product product6 = new Product("Говядина", 600, 4, 1);
+        Product product1 = new Product("Молоко", 100, 3);
+        Product product2 = new Product("Йогурт", 150, 3);
+        Product product3 = new Product("Сыр   ", 250, 3);
+        Product product4 = new Product("Свинина ", 550, 4);
+        Product product5 = new Product("Курица  ", 450, 4);
+        Product product6 = new Product("Говядина", 600, 4);
         Collections.addAll(products, product1, product2, product3);
         Category category1 = new Category("Молочные продукты", products);
         Collections.addAll(products1, product4, product5, product6);

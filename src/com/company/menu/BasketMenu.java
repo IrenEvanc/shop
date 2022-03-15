@@ -7,8 +7,7 @@ import com.company.User;
 import com.company.helper.Helper;
 import com.company.helper.Loading;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 import static com.company.Main.fileUser;
 
@@ -57,6 +56,8 @@ public class BasketMenu {
     public static void editBasket(User user, ArrayList<User> users) {
         boolean isAction = true;
         System.out.println("");
+        showBasket(user);
+
         //а перед тем как редактировать мне не надо чтоб на экран вывели собственно саму корзину?
         while (isAction) {
             System.out.println(EditBasketMenu);
@@ -83,10 +84,10 @@ public class BasketMenu {
         int i = Helper.readInt(0, products.size() + 1);
         Product product = products.get(i - 1);
         System.out.println("Введите желаемое количество товара");
-        product.setNumber(Helper.readInt());
+        Number number = Helper.readInt();
+        user.putProductInBasket(product, number);
         // Ой, а что это ты такое сделала? Да это же костыль) выкинь из продуктов намбер, очень срочно)
-        System.out.println("Наименование выбранного товара: " + product.getName() + "   Цена:" + product.getPrice() + "   Количество:" + product.getNumber());
-        user.putProductsInBasket(product);
+        System.out.println("Наименование выбранного товара: " + product.getName() + "   Цена:" + product.getPrice() + "   Количество:" + number);
         System.out.println("Хотите выбрать еще товар?");
         switch (Helper.readString()) {
             case "Y":
@@ -102,30 +103,33 @@ public class BasketMenu {
 
     public static void showBasket(User user) {
         Basket basket = user.getBasket();
-        ArrayList<Product> products = basket.getPurchasedProducts();
+        HashMap<Product, Number> products = basket.getProductsInBasket();
         System.out.println("Корзина\n");
         int i = 1;
-        System.out.println("№ " + " Наименование товара " + "Стоимость" + "Количество");
-        for (Product product : products) {
-            System.out.println(i + ". " + "       " + product.getName() + "       " + " " + product.getPrice() + "       " + " " + product.getNumber() + "\n");
+        int sum = 0;
+        System.out.format("\t %1$-5s %2$-30s  %3$-10s  %4$-10s\n","№ "," Наименование товара ","Стоимость","Количество");
+        for (Map.Entry<Product, Number> product : products.entrySet()) {
+            System.out.format("\t %1$-5s %2$-30s  %3$-10s  %4$-10s\n", i + ". ", product.getKey().getName(), product.getKey().getPrice(), product.getValue());
             i++;
+            sum=sum+((int)product.getKey().getPrice()*(int)product.getValue());
         }
+        System.out.format("\t %1$-45s %2$-10s\n","Общая стоимость товара", sum);
         System.out.println();
     }
 
     private static Product selectProduct(User user) {
-        ArrayList<Product> products = user.getBasket().getPurchasedProducts();
-        int number;
+        HashMap<Product, Number> products = user.getBasket().getProductsInBasket();
+        Set<Product> products1 = products.keySet();
         System.out.println("\nВведите номер товара, который желаете изменить/удалить");
-        number = Helper.readInt();
-        Product product = products.get(number - 1);
+        Product product = (Product) products1.toArray()[Helper.readInt()-1];
         return product;
     }
 
     private static void changeNumberOfProduct (User user, ArrayList<User> users){
         Product product = selectProduct(user);
+        HashMap<Product, Number> products = user.getBasket().getProductsInBasket();
         System.out.println("Введите желаемое количество товара");
-        product.setNumber(Helper.readInt());
+        products.replace (product, Helper.readInt());
         users.remove(user);
         Collections.addAll(users, user);
         User.saveToFile(users, fileUser);
@@ -133,7 +137,7 @@ public class BasketMenu {
 
     private static void deleteProductFromBasket (User user, ArrayList<User> users){
         Product product = selectProduct(user);
-        ArrayList<Product> products = user.getBasket().getPurchasedProducts();
+        HashMap<Product, Number> products = user.getBasket().getProductsInBasket();
         products.remove(product);
         users.remove(user);
         Collections.addAll(users, user);

@@ -35,8 +35,8 @@ public class User implements Serializable{
     }
 
     //опять ты говоришь, что кладёшь много продуктов, а на самом деле то всего один
-    public void putProductsInBasket(Product product) {
-        this.basket.putProducts(product);
+    public void putProductInBasket(Product product, Number number) {
+        this.basket.putProduct(product, number);
     }
 
     public static ArrayList<User> initFromFile(String file){
