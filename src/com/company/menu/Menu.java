@@ -1,17 +1,13 @@
 package com.company.menu;
 
-
 import com.company.Category;
 import com.company.User;
 import com.company.helper.Helper;
 import com.company.helper.Loading;
-
 import java.io.*;
 import java.util.ArrayList;
 
-
 public class Menu {
-
 
     private static String Menu =
             "1 - Авторизация\n" +
@@ -27,11 +23,12 @@ public class Menu {
             System.out.println(Menu);
            switch (Helper.readInt()) {
                 case 1:
-                    //вот тут идёт некая авторизация, а не должен ли в качестве её результата возвращаться пользователь?
-                    //а вот дальше уже для него некий движ-Париж, выглядит будто бы так
-                    // а вот перед тем как дать ему каталог проверяем авторизованный или нет, и показываем либо полное либо урезанное
-                    Authorization.startAuthorizationMenu(users, categories);
-                    break;
+                     User user = Authorization.startAuthorizationMenu(users);
+                    if (user != null) {
+                        Catalog.startCatalogMenu(user, categories);
+                    } else {
+                        Catalog.startCatalogMenu(categories);
+                    }
                 case 2:
                     System.out.println("Добро пожаловать в каталог!");
                     Catalog.startCatalogMenu(categories);
@@ -64,7 +61,6 @@ public class Menu {
             e.printStackTrace();
         }
     }
-
 }
 
 

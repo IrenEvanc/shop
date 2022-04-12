@@ -57,8 +57,8 @@ public class Catalog {
                     choice(categories, user, users);
                     break;
                 case 2:
-                    BasketMenu.showBasket(user);
-                    BasketMenu.goBasketMenu(user);
+                    BasketMenu.showBasket(user, categories);
+                    BasketMenu.goBasketMenu(user, categories);
                     break;
                 case 0:
                     isAction = false;

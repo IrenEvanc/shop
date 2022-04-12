@@ -18,12 +18,12 @@ public class Authorization {
             "0 - Вернуться в главное меню";
 
 
-    public static void startAuthorizationMenu(ArrayList<User> users, ArrayList<Category> categories) {
-        AuthorizationUser(users, categories);
+    public static User startAuthorizationMenu(ArrayList<User> users) {
+        User user = AuthorizationMenu(users);
+        return user;
     }
-    // метод называется авторизация пользователя, а с него вдруг оказывается попадаем в какое-то меню 0_0
-    // не провалился бы в этот метод о таком подвохе даже и не подумал бы
-    private static void AuthorizationUser(ArrayList<User> users, ArrayList<Category> categories) {
+
+    private static User AuthorizationMenu(ArrayList<User> users) {
         boolean isAction = true;
         while (isAction) {
             System.out.println(AuthorizationMenu);
@@ -31,17 +31,14 @@ public class Authorization {
                 case 1:
                     var user = authorize();
                     if (user != null) {
-                        System.out.println("Добро пожаловать в каталог");
-                        Catalog.startCatalogMenu(user, categories);
-                    } else {
-                        //ПОГОДИТЕ-КА я нажал войти в систему, что-то пошло не так, логин не тот ввёл или ещё что, и мне просто открывает каталог товаров?
-                        Catalog.startCatalogMenu(categories);
+                        System.out.println("Добро пожаловать в каталог, " + user.getLogin());
+                        return user;
                     }
                     break;
                 case 2:
-                    //ну по идее этот метод должен вернуть мне этого пользователя, которого зарегистрировал, и для него продолжить сесисию будто он авторизовался
-                    registration(users);
-                    break;
+                    user = registration(users);
+                    System.out.println("Добро пожаловать в каталог, " + user.getLogin());
+                    return  user;
                 case 0:
                     isAction = false;
                     break;
@@ -50,28 +47,32 @@ public class Authorization {
                     break;
             }
         }
+        return null;
     }
 
     private static User authorize() {
         User user = login();
-        var userIsAuthorized = checkPassword(user);
-        return userIsAuthorized ? user : null;
+        if(user!=null) {var userIsAuthorized = checkPassword(user);
+        return userIsAuthorized ? user : null;}
+        else return null;
     }
 
     private static User login() {
         while (true) {
-            System.out.println("Введите логин");
+            System.out.println("Введите логин (0. Войти без регистрации)");
             String login = Helper.readString();
-            User user = findUserByLogin(login);
-            if (user != null) {
-                return user;
+            if (login.equals("0")) {
+                return null;
             } else {
-                System.out.println("Неверный логин.\n");
-
+                User user = findUserByLogin(login);
+                if (user != null) {
+                    return user;
+                } else {
+                    System.out.println("Неверный логин.\n");
+                }
             }
         }
     }
-
 
     private static User findUserByLogin(String login) {
         for (User user : Loading.getUsers()) {
@@ -79,7 +80,6 @@ public class Authorization {
                 return user;
             }
         }
-        System.out.println("\nНеверный логин!\n");
         return null;
     }
 
@@ -92,20 +92,28 @@ public class Authorization {
                 return true;
             } else {
                 System.out.println("Неверный пароль.\n");
-
             }
         }
     }
 
-    static void registration(ArrayList<User> users) {
-
+    static User registration(ArrayList<User> users) {
         User user  = new User();
         System.out.println("Введите логин");
         user.setLogin(Helper.readString());
         System.out.println("Введите пароль");
-        user.setPassword(Helper.readString());
-        Collections.addAll(users, user);
-        User.saveToFile(users, fileUser);
+        String password = Helper.readString();
+        while (true) {
+            System.out.println("Введите пароль повторно");
+            if (password.equals(Helper.readString())) {
+                user.setPassword(password);
+                Collections.addAll(users, user);
+                User.saveToFile(users, fileUser);
+               return user;
+            } else {
+                System.out.println("Неверно!");
+            }
+        }
 
     }
+
 }
