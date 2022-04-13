@@ -8,12 +8,14 @@ public class User implements Serializable{
     private String login;
     private String password;
     private Basket basket;
+    private ArrayList <Check> checks;
     static int count = 0;
 
     public User() {
         this.login = new String();
         this.password = new String();
         this.basket = new Basket();
+        this.checks = new ArrayList<>();
         count++;
         }
 
@@ -38,6 +40,17 @@ public class User implements Serializable{
         this.basket.putProduct(product, number);
     }
 
+    public void purchaseReceipts(Check check) {
+        this.checks.add(check);
+    }
+
+    public ArrayList<Check> getChecks() {
+        return checks;
+    }
+
+//    public void setChecks(ArrayList<Check> checks) {
+//        this.checks = checks;
+//    }
     public static ArrayList<User> initFromFile(String file){
         ArrayList<User> users = new ArrayList<User>();
         try {
@@ -73,12 +86,21 @@ public class User implements Serializable{
         return Objects.hash(login, password);
     }
 
+
+
+    public Basket clearBasket() {
+        this.basket.getProductsInBasket().clear();
+        return basket;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", basket=" + basket +
+                ", checks=" + checks +
                 '}';
     }
+
 }

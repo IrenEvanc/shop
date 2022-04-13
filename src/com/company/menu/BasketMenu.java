@@ -1,9 +1,6 @@
 package com.company.menu;
 
-import com.company.Basket;
-import com.company.Category;
-import com.company.Product;
-import com.company.User;
+import com.company.*;
 import com.company.helper.Helper;
 import com.company.helper.Loading;
 
@@ -16,6 +13,7 @@ public class BasketMenu {
     private static String BasketMenu =
             "1 - Редактировать корзину\n" + // изменить количество и удалить
                     "2 - Купить все\n" +
+                    "3 - Показать чеки покупок\n" +
                     "0 - Вернуться в каталог";
     private static String EditBasketMenu =
             "1 - Изменить количество\n" +
@@ -35,11 +33,12 @@ public class BasketMenu {
                 case 1:
                     editBasket(user, users, categories);
                     break;
-//                case 2:
-//                    buyAll();
-//                    break;
-                    //ну тут думаю ничего не надо комментировать)))
-
+                case 2:
+                    buyAllProducts(user, users);
+                    break;
+                case 3:
+                    showPurchaseReceipts(user);
+                    break;
                 case 0:
                     isAction = false;
                     break;
@@ -88,7 +87,7 @@ public class BasketMenu {
                 Catalog.showCategories(categories);
                 break;
             case "N":
-                Catalog.startCatalogMenu(categories);
+                Catalog.startCatalogMenu(user, categories);
                 break;
         }
         Collections.addAll(users, user);
@@ -110,18 +109,23 @@ public class BasketMenu {
 
         } else {
             System.out.println("Корзина\n");
-            int i = 1;
-            int sum = 0;
-            System.out.format("\t %1$-5s %2$-30s  %3$-10s  %4$-10s\n", "№ ", " Наименование товара ", "Стоимость", "Количество");
-            for (Map.Entry<Product, Number> product : products.entrySet()) {
-                System.out.format("\t %1$-5s %2$-30s  %3$-10s  %4$-10s\n", i + ". ", product.getKey().getName(), product.getKey().getPrice(), product.getValue());
-                i++;
-                sum = sum + ((int) product.getKey().getPrice() * (int) product.getValue());
-            }
-            System.out.format("\t %1$-45s %2$-10s\n", "Общая стоимость товара", sum);
-            System.out.println();
-
+            displayingTableWithProducts(products);
         }
+    }
+
+    private  static void displayingTableWithProducts ( HashMap<Product, Number> products) {
+
+        int i = 1;
+        int sum = 0;
+        System.out.format("\t %1$-5s %2$-30s  %3$-10s  %4$-10s\n", "№ ", " Наименование товара ", "Стоимость", "Количество");
+        for (Map.Entry<Product, Number> product : products.entrySet()) {
+            System.out.format("\t %1$-5s %2$-30s  %3$-10s  %4$-10s\n", i + ". ", product.getKey().getName(), product.getKey().getPrice(), product.getValue());
+            i++;
+            sum = sum + ((int) product.getKey().getPrice() * (int) product.getValue());
+        }
+        System.out.format("\t %1$-45s %2$-10s\n", "Общая стоимость товара", sum);
+        System.out.println();
+
     }
 
     private static Product selectProduct(User user) {
@@ -149,5 +153,34 @@ public class BasketMenu {
         users.remove(user);
         Collections.addAll(users, user);
         User.saveToFile(users, fileUser);
+    }
+
+    private static void buyAllProducts(User user, ArrayList<User> users) {
+        HashMap<Product, Number> purchasedProducts = user.getBasket().getProductsInBasket();
+
+        Check check = new Check(Check.addPurchasedProducts(purchasedProducts));
+        user.purchaseReceipts(check);
+
+        user.clearBasket();
+//        users.remove(user);
+//        Collections.addAll(users, user);
+        User.saveToFile(users, fileUser);
+    }
+    private static ArrayList<Check> allUserChecks(User user) {
+        return user.getChecks();
+    }
+    private static void showPurchaseReceipts(User user) {
+        ArrayList<Check> checks = allUserChecks(user);
+
+        for (Check check: checks) {
+
+            System.out.println();
+            System.out.println("Чек\n " + "Дата покупки:" +  check.getDate() +"\n");
+            HashMap<Product, Number> products = check.getPurchasedProducts();
+            displayingTableWithProducts(products);
+
+        }
+        System.out.println();
+
     }
 }

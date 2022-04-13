@@ -7,7 +7,7 @@ public class Basket implements  Serializable {
 
     private HashMap<Product, Number> productsInBasket;
 
-     public Basket() {
+    public Basket() {
         this.productsInBasket = new HashMap<>();
     }
 
