@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta username="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css"/>
 
     <title> Список пользователей </title>
@@ -55,7 +55,7 @@
                 <td><a class="not_line_href"
                        th:href="'/info/employeeit/'+ ${user.id}"><i
                         class="not_line_href"
-                        th:text="${user.login} "></i></a>
+                        th:text="${user.username} "></i></a>
                 </td>
                 <td><a class="not_line_href"
                        th:href="'/info/employeeit/'+ ${user.id}"><i

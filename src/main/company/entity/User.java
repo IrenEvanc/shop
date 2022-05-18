@@ -21,12 +21,15 @@ public class User implements Serializable, UserDetails {
     private long id;
 
     @Lob @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "login")
-    private String login;
+    @Column(name = "username")
+    private String username;
 
     @Lob @Type(type = "org.hibernate.type.TextType")
     @Column(name = "password")
     private String password;
+
+    @Transient
+    private String passwordConfirm;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "basket_id")
@@ -39,8 +42,8 @@ public class User implements Serializable, UserDetails {
     @Column(name = "surname")
     private String surname;
     @Lob @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "username")
-    private String username;
+    @Column(name = "name")
+    private String name;
     @Lob @Type(type = "org.hibernate.type.TextType")
     @Column(name = "fathers_name")
     private String fathersName;
@@ -62,60 +65,6 @@ public class User implements Serializable, UserDetails {
     private Set<Role> roles;
 
     public User() {}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
-
-    public List<Check> getChecks() {
-        return checks;
-    }
-
-    public void setChecks(List<Check> checks) {
-        this.checks = checks;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -142,8 +91,70 @@ public class User implements Serializable, UserDetails {
         return getRoles();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+
+    public List<Check> getChecks() {
+        return checks;
+    }
+
+    public void setChecks(List<Check> checks) {
+        this.checks = checks;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getFathersName() {
@@ -170,6 +181,14 @@ public class User implements Serializable, UserDetails {
         this.phone = phone;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -178,21 +197,15 @@ public class User implements Serializable, UserDetails {
         this.roles = roles;
     }
 
-    public boolean isActive() {
-        return active;
-    }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 //
 //
-//    public String getLogin() {
-//        return login;
+//    public String getUsername() {
+//        return username;
 //    }
 //
-//    public void setLogin(String login) {
-//        this.login = login;
+//    public void setUsername(String username) {
+//        this.username = username;
 //    }
 //    public Basket getBasket() {
 //        return basket;
@@ -243,12 +256,12 @@ public class User implements Serializable, UserDetails {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;
 //        User user = (User) o;
-//        return Objects.equals(login, user.login) && Objects.equals(password, user.password);
+//        return Objects.equals(username, user.username) && Objects.equals(password, user.password);
 //    }
 //
 //    @Override
 //    public int hashCode() {
-//        return Objects.hash(login, password);
+//        return Objects.hash(username, password);
 //    }
 //
 //
@@ -261,7 +274,7 @@ public class User implements Serializable, UserDetails {
 //    @Override
 //    public String toString() {
 //        return "User{" +
-//                "login='" + login + '\'' +
+//                "username='" + username + '\'' +
 //                ", password='" + password + '\'' +
 //                ", basket=" + basket +
 //                ", checks=" + checks +
