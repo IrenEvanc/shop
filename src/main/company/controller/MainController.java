@@ -11,23 +11,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    @GetMapping("/")
+    public String main(Model model) {
+        return "main";
     }
 
-    @GetMapping
-
-    public String main (Map<String, Object> model) {
+    @GetMapping("/menu")
+    public String menu (Map<String, Object> model) {
         Iterable<User> users = userRepository.findAll();
         model.put("users", users);
-        return  "main";
+        return "menu";
     }
 
 }

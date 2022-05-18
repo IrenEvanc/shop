@@ -1,15 +1,19 @@
 package company.entity;
 
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table (name = "Users")
-public class User implements Serializable{
+public class User implements Serializable, UserDetails {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -24,21 +28,40 @@ public class User implements Serializable{
     @Column(name = "password")
     private String password;
 
-    @OneToOne(optional = false, cascade = CascadeType.REFRESH, fetch=FetchType.EAGER)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
     @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     private List<Check> checks = new ArrayList<Check>();
 
+    @Lob @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "surname")
+    private String surname;
+    @Lob @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "username")
+    private String username;
+    @Lob @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "fathers_name")
+    private String fathersName;
+    @Lob @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "email")
+    private String email;
 
-    public User() {
-//        this.login = new String();
-//        this.password = new String();
-//        this.basket = new Basket();
-//        this.checks = new ArrayList<>();
+    @Lob @Type(type = "org.hibernate.type.TextType")
+    @Column(name = "phone")
+    private String phone;
 
-        }
+    @Lob @Type(type = "org.hibernate.type.BooleanType")
+    @Column(name = "active")
+    private boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
+    @CollectionTable (name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated (EnumType.STRING)
+    private Set<Role> roles;
+
+    public User() {}
 
     public long getId() {
         return id;
@@ -55,6 +78,8 @@ public class User implements Serializable{
     public void setLogin(String login) {
         this.login = login;
     }
+
+
 
     public String getPassword() {
         return password;
@@ -80,6 +105,86 @@ public class User implements Serializable{
         this.checks = checks;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFathersName() {
+        return fathersName;
+    }
+
+    public void setFathersName(String fathersName) {
+        this.fathersName = fathersName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 //
 //
 //    public String getLogin() {

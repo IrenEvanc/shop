@@ -1,57 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-<!--    <link rel="stylesheet" type="text/css" href="/style.css/"/>-->
-    <title> Список пользователей </title>
+    <meta username="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <title> Главная страница </title>
 </head>
 <body>
+
 <div class="wrapper">
-    <div th:switch="${users}" class="contents">
+    <div class="contents">
         <div class="tabs">
-<div class="table">
-    <div>
-        <table id="employeeTable" class="table">
-            <thead>
-            <tr>
-                <th onclick="sortTableEmployee(0)" class="id_employee">ID</th>
-                <th onclick="sortTableEmployee(1)" class="name_employee">Пользователь</th>
-                <th onclick="sortTableEmployee(2)" class="status_employee">Пароль</th>
-<!--                <th onclick="sortTableEmployee(3)" class="post_employee">Должность</th>-->
-<!--                <th onclick="sortTableEmployee(4)" class="project_employee">Проект</th>-->
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user:${users}">
-                <td><a class="not_line_href"
-                       th:href="'/info/employeeit/'+ ${user.id}"><i
-                        class="not_line_href" th:text="${user.id}"></i></a></td>
-                <td><a class="not_line_href"
-                       th:href="'/info/employeeit/'+ ${user.id}"><i
-                        class="not_line_href"
-                        th:text="${user.login} "></i></a>
-                </td>
-                <td><a class="not_line_href"
-                       th:href="'/info/employeeit/'+ ${user.id}"><i
-                        class="not_line_href"
-                        th:text="${user.password}"></i></a></td>
-<!--                <td><a class="not_line_href"-->
-<!--                       th:href="'/info/employeeit/'+ ${user.id}"><i-->
-<!--                        class="not_line_href"-->
-<!--                        th:text="${employeeit.employee.post.name}"></i></a></td>-->
-<!--                <td><a class="not_line_href"-->
-<!--                       th:href="'/info/employeeit/'+ ${employeeit.id}"><i-->
-<!--                        class="not_line_href"-->
-<!--                        th:text="${employeeit.project.projectName}"></i></a></td>-->
+            <header th:insert="blocks/header :: header"></header>
 
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+            <div class="tabs_body">
+                <div id="tab_menu" class="tabs_block">
+                    <div><div>
+                    </div>
+                    </div>
+
+                    <div id="tab_candidate" class="tabs_block"></div>
+                    <div id="tab_team" class="tabs_block"></div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+        </div>
+        </div>
+        <script src="/popup.js/"></script>
+
 </body>
 </html>

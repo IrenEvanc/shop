@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Basket")
@@ -16,22 +18,23 @@ public class Basket implements  Serializable {
     @Column(name = "id")
     private long id;
 
-    @OneToOne(optional = false, mappedBy="basket")
-    private User user;
+//    @OneToOne(optional = false, mappedBy="basket", cascade=CascadeType.ALL)
+//    private User user;
 
     @OneToMany(mappedBy = "basket", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     private List<Product> products;
 
-    @Lob @Type(type = "org.hibernate.type.DoubleType")
-    @Column(name = "number")
-    private Number number;
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable (name = "user_basket",
+            joinColumns = @JoinColumn(name = "basket_id"))
+    @MapKeyJoinColumn(name = "product_id")
+
+    private Map<Product, Number> productsInBasket = new HashMap<>() ;
+
 
 //    private HashMap<Product, Number> productsInBasket;
 
-    public Basket() {
-
-//        this.productsInBasket = new HashMap<>();
-    }
+    public Basket() {}
 
 //
 //    public void putProduct(Product product, Number number) {
@@ -57,14 +60,14 @@ public class Basket implements  Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public List<Product> getProducts() {
         return products;
@@ -74,16 +77,12 @@ public class Basket implements  Serializable {
         this.products = products;
     }
 
-    public Number getNumber() {
-        return number;
+    public Map<Product, Number> getProductsInBasket() {
+        return productsInBasket;
     }
 
-    public void setNumber(double number) {
-        this.number = number;
-    }
-
-    public void setNumber(Number number) {
-        this.number = number;
+    public void setProductsInBasket(Map<Product, Number> productsInBasket) {
+        this.productsInBasket = productsInBasket;
     }
 }
 

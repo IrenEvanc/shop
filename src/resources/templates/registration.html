@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<!--    <meta charset="UTF-8">-->
+<!--    <meta username="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link rel="stylesheet" type="text/css" href="style.css"/>-->
+
+    <title>Spring Security </title>
+</head>
+<body>
+<!--<div th:if="${param.error}">-->
+<!--    Invalid username and password.-->
+<!--</div>-->
+<!--<div th:if="${param.logout}">-->
+<!--    You have been logged out.-->
+<!--</div>-->
+Add new user
+
+
+<form th:action="@{/registration}" method="post" class="entry_form">
+    <div class="form_row"><label> Login :
+        <input type="text" name="username"/> </label>
+    </div>
+    <div class="form_row"><label> Password:
+        <input type="password" name="password"/> </label>
+    </div>
+    <div class="form-actions">
+        <input type="submit" value="Sign In" class="btn"/>
+    </div>
+</form>
+<!--<style>-->
+<!--    * {-->
+<!--        box-sizing: border-box;-->
+<!--    }-->
+
+<!--    body {-->
+<!--        background: #000000;-->
+<!--        font-family: 'Roboto', sans-serif;-->
+<!--    }-->
+
+<!--    .entry_form {-->
+<!--        max-width: 350px;-->
+<!--        padding: 80px 30px 30px;-->
+<!--        margin: 50px auto 30px;-->
+<!--        background: #5b5b5b;-->
+<!--    }-->
+
+<!--    .entry_form h3 {-->
+<!--        position: relative;-->
+<!--        z-index: 5;-->
+<!--        margin: 15px 0 100px;-->
+<!--        text-align: center;-->
+<!--        color: #ffffff;-->
+<!--        font-size: 35px;-->
+<!--        font-weight: normal;-->
+<!--    }-->
+
+<!--    .form_row {-->
+<!--        position: relative;-->
+<!--        margin-bottom: 40px;-->
+<!--    }-->
+
+<!--    .form_row input {-->
+<!--        display: block;-->
+<!--        width: 100%;-->
+<!--        padding: 0 10px;-->
+<!--        line-height: 40px;-->
+<!--        font-family: 'Roboto', sans-serif;-->
+<!--        background: none;-->
+<!--        border-width: 0;-->
+<!--        border-bottom: 2px solid #ffffff;-->
+<!--        transition: all 0.2s ease;-->
+<!--    }-->
+
+<!--    .form_row label {-->
+<!--        position: absolute;-->
+<!--        left: 10px;-->
+<!--        color: #eeeeee;-->
+<!--        font-size: 15px;-->
+<!--        font-weight: 300;-->
+<!--        transform: translateY(-20px);-->
+<!--        transition: all 0.2s ease;-->
+<!--    }-->
+
+<!--    .form_row input:focus {-->
+<!--        outline: 0;-->
+<!--        border-color: #8d8d8d;-->
+<!--    }-->
+
+<!--    .form_row input:focus + label, .form_row input:valid + label {-->
+<!--        transform: translateY(-60px);-->
+<!--        margin-left: -14px;-->
+<!--        font-size: 14px;-->
+<!--        font-weight: 400;-->
+<!--        outline: 0;-->
+<!--        border-color: #d5d2d2;-->
+<!--        color: #d5d2d2;-->
+<!--    }-->
+
+<!--    .entry_form button[type="submit"] {-->
+<!--        width: 100%;-->
+<!--        padding: 0;-->
+<!--        line-height: 42px;-->
+<!--        background: none;-->
+<!--        color: white;-->
+<!--        font-size: 20px;-->
+<!--    }-->
+
+<!--    .entry_form button {-->
+<!--        margin: 0;-->
+<!--        padding-top: 10px;-->
+<!--    }-->
+
+<!--    .alert {-->
+<!--        margin-bottom: 40px;-->
+<!--        color: #000000;-->
+<!--    }-->
+
+<!--</style>-->
+</body>
+</html>

@@ -1,0 +1,585 @@
+/*обнуление*/
+*,
+*:before,
+*:after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+html,
+boby {
+    height: 100%;
+    background-color: #000000;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color:#f3f3f3;
+    font-size: 18px;
+}
+
+body.lock {
+    overflow: hidden;
+}
+
+.wrapper {
+    min-height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hiddenElement{
+visibility: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/*вкладки и их содержимое*/
+.contents {
+    padding: 50px 0;
+    max-width: 1100px;
+    margin: 0px auto;
+}
+
+.tabs_items {
+    display: flex;
+}
+
+.tabs_item {
+    flex: 0 1 20%;
+    /*width: 50px;*/
+    /*height: 50px;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    color: #f3f3f3;
+    text-decoration: none;
+}
+
+.tabs_item span {
+    position: relative;
+    z-index: 10;
+}
+
+.tabs_block {
+    position: relative;
+    padding: 20px;
+    font-size: 12px;
+    line-height: 24px;
+    display: none;
+}
+
+.tabs_block:before {
+    content: "";
+    height: 50px;
+    width: 20%;
+    position: absolute;
+    top: -50px;
+}
+
+.tabs_block {
+    background-color: #000000;
+
+}
+
+.tabs_block:nth-child(1):before {
+    background-color: #383780;
+    left: 0;
+}
+
+.tabs_block:nth-child(2):before {
+    background-color: #383780;
+    left: 20%;
+}
+
+.tabs_block:nth-child(3):before {
+    background-color: #383780;
+    left: 40%;
+}
+
+.tabs_block:nth-child(4):before {
+    background-color: #383780;
+    right: 20%;
+}
+
+.tabs_block:nth-child(5):before {
+    background-color: #383780;
+    right: 0%;
+}
+
+.tabs_block:target {
+    display: block;
+}
+
+.text {
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.info {
+    color: greenyellow;
+}
+
+/*кнопки создать задачу, удалить акк и добавить акк*/
+.tabs_change {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 10px;
+    position: relative;
+    color: #210707;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.tabs_info_user {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 10px;
+    position: relative;
+    color: #ffffff;
+}
+
+.tabs_addTask, .tabs_deleteAccount, .tabs_addAccount, .tabs_exit, .tabs_addVacancy, .tabs_teamSelection {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 10px;
+    position: relative;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, .4);
+    background: none;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tabs_addTask:before, .border-button:after, .tabs_deleteAccount:before, .tabs_addAccount:before, .tabs_exit:before,
+.tabs_addVacancy:before, .tabs_teamSelection:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    box-sizing: border-box;
+}
+
+.tabs_addTask:before, .tabs_deleteAccount:before, .tabs_addAccount:before, .tabs_exit:before,
+.tabs_addVacancy:before, .tabs_teamSelection:before {
+    bottom: 0;
+    left: 0;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
+}
+
+.tabs_addTask:after, .tabs_deleteAccount:after, .tabs_addAccount:after, .tabs_exit:after,
+.tabs_addVacancy:after, .tabs_teamSelection:after {
+    top: 0;
+    right: 0;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    transition: 0s ease opacity .4s, .2s ease width, .2s ease height .2s;
+}
+
+.tabs_addTask:hover:before, .tabs_addTask:hover:after, .tabs_deleteAccount:hover:before, .tabs_deleteAccount:hover:after,
+.tabs_addAccount:hover:before, .tabs_addAccount:hover:after, .tabs_exit:hover:before, .tabs_exit:hover:after,
+.tabs_addVacancy:hover:before, .tabs_addVacancy:hover:after, .tabs_teamSelection:hover:before, .tabs_teamSelection:hover:after {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+}
+
+.tabs_addTask:hover:before, .tabs_deleteAccount:hover:before, .tabs_addAccount:hover:before, .tabs_exit:hover:before,
+.tabs_addVacancy:hover:before, .tabs_teamSelection:hover:before {
+    transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;
+}
+
+.tabs_addTask:hover:after, .tabs_deleteAccount:hover:after, .tabs_addAccount:hover:after, .tabs_exit:hover:after,
+.tabs_addVacancy:hover:after, .tabs_teamSelection:hover:after {
+    transition: 0s ease opacity .4s, .2s ease height .4s, .2s ease width .6s;
+}
+
+.tabs_addTask:hover, .tabs_deleteAccount:hover, .tabs_addAccount:hover, .tabs_exit:hover, .tabs_addVacancy:hover, .tabs_teamSelection:hover {
+    background: rgba(255, 255, 255, .2);
+}
+
+/*оформление таблиц*/
+.table_team_search {
+    text-align: left;
+    vertical-align: top;
+    width: 800px;
+}
+
+.table_team_search th {
+    vertical-align: top;
+
+}
+
+.team_lable {
+    font-size: 14px;
+    text-transform: none;
+}
+
+.onediv {
+    float: left;
+}
+
+.twodiv {
+    float: right;
+}
+
+.table {
+    width: 100%;
+    border: none;
+    /*margin-bottom: 20px;*/
+    margin: 0 auto;
+    table-layout: fixed;
+}
+
+.id_candidate, .id_employee{
+    width: 50px;
+}
+.name_candidate, .post_candidate, .name_employee{
+    width: 270px;
+}
+.status_candidate, .status_employee {
+    width: 200px;
+}
+.date_task {
+    width: 100px;
+}
+.status_task{
+    width: 150px;
+}
+.task_task {
+    width: 140px;
+}
+
+
+.table thead th {
+    font-weight: normal;
+    text-align: center;
+    border: none;
+    padding: 10px 15px;
+    background: rgba(131, 128, 128, 0.41);
+    font-size: 15px;
+}
+
+.table thead tr th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.table thead tr th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.table tbody td {
+    text-align: left;
+    border: none;
+    padding: 8px 15px;
+    font-size: 12px;
+    vertical-align: top;
+}
+
+.table tbody tr:nth-child(even) {
+    background: rgba(131, 128, 128, 0.41);
+}
+
+.table tbody tr td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.table tbody tr td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+/*поиск и фильтры*/
+.table_and_search {
+    display: table;
+}
+
+.table_and {
+    display: table-cell;
+}
+
+.search {
+    display: table-cell;
+    position: center;
+    color: #eeeeee;
+    font-size: 10px; /*устанавливаем явный размер шрифта*/
+
+    width: 100%;
+    padding: 0.75rem; /*внутренние поля:*/
+    line-height: 2; /*высота строки*/
+
+}
+
+.search_field{
+    display: inline-block;
+    margin-right: 150px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    height: 30px;
+    width: 500px;
+    border-radius:  3px;
+}
+.search_field_emp {
+    display: inline-block;
+    margin-right: 60px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    height: 30px;
+    width: 500px;
+    border-radius:  3px;
+}
+
+.search_button {
+    /*text-decoration: none;*/
+    /*display: inline-block;*/
+    padding: 10px 10px;
+    margin: 5px 5px;
+    position: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, .4);
+    background: #383737;
+    /*font-weight: 300;*/
+    font-family: 'Montserrat', sans-serif;
+    /*text-transform: uppercase;*/
+    letter-spacing: 2px;
+}
+
+.search_name {
+    font-size: 14px;
+    margin: 0px;
+    color: white;
+}
+
+
+/*popup*/
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.68);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all 0.8s ease 0s;
+}
+
+.popup.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup_body {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 40px;
+    font-size: 15px;
+}
+
+.popup_content {
+    background-color: #f3f3f3;
+    color: black;
+    max-width: 2000px;
+    padding: 50px 50px 50px 50px;
+    position: relative;
+}
+
+.popup_close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.popup_text {
+    /*padding-left: 10px;*/
+    margin: 5px;
+    padding: 5px;
+}
+
+.popup_field {
+    height: 30px;
+    border: 1px solid #0a0a0a;
+    display: block;
+    margin: 10px;
+    width: 100%;
+}
+
+.popup_button {
+    line-height: 40px;
+    width: 100%;
+    display: inline-block;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 5px 5px 5px 5px;
+    margin: 30px 0px 5px 5px;
+    align-items: center;
+    font-size: 18px;
+    border: 5px;
+    background-color: #e1e1e1;
+    transition: all 0.3s ease 0s;
+    position: relative;
+}
+
+.popup_button:before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #484747;
+    transition: all 0.3s ease 0s;
+}
+
+.popup_title {
+    font-size: 35px;
+    text-transform: uppercase;
+    margin: 0px 0px 15px 0px;
+}
+
+/*оформление редактируемых полей в попапах*/
+
+.text-field_group {
+    display: flex;
+}
+
+.text-field_btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #0e0e0e;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+
+    user-select: none;
+    background-color: #eee;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: background-color .15s ease-in-out;
+}
+
+.text-field_btn:hover {
+    background-color: #b7b7b7;
+}
+
+.text-field_group .text-field__input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.text-field_group .text-field__btn {
+    position: relative;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-width: 0;
+}
+
+.table_info td {
+    padding: 5px;
+
+}
+
+.table_info label {
+    font-weight: bold;
+}
+
+.table_info_tag {
+    width: 100%;
+    position: center;
+}
+
+.text-field_btn {
+    font-size: 15px;
+}
+
+.not_line_href {
+    text-decoration: none;
+    color: #ffffff;
+    font-style: normal;
+    font-weight: lighter;
+    text-align: left;
+}
+.not_line_href_black{
+    text-decoration: none;
+    color: #000000;
+    font-style: normal;
+    font-weight: lighter;
+    text-align: left;
+}
+/*для редактируемых окон*/
+.lable_edit {
+    font-weight: bold;
+}
+
+.form-control {
+    /*display: inline-block;*/
+    /*margin-right: 150px;*/
+    /*margin-bottom: 20px;*/
+    text-decoration: none;
+    height: 25px;
+    width: 200px;
+    border-radius:  5px;
+    margin-left: 20%;
+}
+
+.form-control_task{
+    /*display: inline-block;*/
+    /*margin-right: 150px;*/
+    /*margin-bottom: 20px;*/
+    text-decoration: none;
+    height: 25px;
+    width: 100px;
+    border-radius: 3px;
+}
+
+/*для меню*/
+.avatar {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.slideshow-container {
+    margin: 30px 15px 3px 3px;
+    position: relative;
+    background: rgba(241, 241, 241, 0.25);
+
+}
+
+.mySlides {
+    padding: 15px;
+    text-align: center;
+}
+
+q {font-style: italic;}
+.author {color: #000000;}
+.user_photo{
+    margin: 10px 0px 0px 0px;
+}
+
+
+/*сбор команды*/

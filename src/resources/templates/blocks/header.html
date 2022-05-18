@@ -1,0 +1,33 @@
+<div th:fragment="header">
+
+<header id="header" class="header lock-padding">
+    <nav class="tabs_items">
+
+        <div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
+            <div>
+
+        <a href="menu#tab_menu" class="tabs_item"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAYFBMVEX///8AAADPz89LS0uWlpb39/eCgoKQkJCxsbH29vZiYmI4ODh0dHTX19empqbFxcXr6+sQEBDh4eEbGxu7u7s0NDR6enpXV1egoKDJyclvb28ODg6IiIhcXFwfHx8ZGRnwNjATAAACZUlEQVR4nO3dCW7CMBCFYRdIw75vbSm9/y2rqKgUVRo72NJoxv93gveUkGBj7BAAAAAAAAAAAAAAAAAAoAKrdjq0Y9qu+tVbH1/sOa7TC7baYZ/UJvZrZtpJnzZrkgputHNm2KRUPGinzHKIF3zVzpjpNVZwq50w2zbScKodMNtULjjRzlfARGw41o5XwFhsONeOV8BcbGj3ZX83Extqpyui8oY77XQFXMWGJ+14BZzEhlbHTX/JY6iBdrwCFmJDD48auWBYaufLtow0NP803cUKhoV2xEyRT6H9+zR6j3bO2ikznFMKhrDSzvm05GnhxuYgap40l3izHlmbcpuNekx53y7kdmDHts/lAwAAAAAAAAAAxjRvy5Edy7e+P1zsh9q/JfU23PfoN7hqx33KdZBa0O5i9ugy9h+f2jkzfKYUfNdOmeU9XtD6Sm95lXfwsFhfXqofwkU7YLZLpKF2vgLkgnYXC93Jy4bsvgrv5JeivS9r/w3Fhh/a8QrYiA210xVR+TX0/zn0/yz1/z708KiRC1bwvdT+2CI6JeV+fFjBGL+CeRrLT5vEubYK5kuD/znvjvffLQAAAAAAAAAAgCHO94myt9fXoddeXxOj+7XFFkD/srtsKHHPPff7Jrrf+9L//qVf2hEzRfegtX2PdmL3qXa+AuSC/vfz9r8nu/999a3v5t2Rn6ba6YqovKH/c2ZsDpseyWcFWV/l3ZFXettfqh/9I7D7c9cqODvP/H+7EhazW5tke5RwhmVoLI+Bk84h9X+WbLA7hko9DzhUcKZzx/m53AAAAAAAAAAAAAAAAABg0zfn21Nf0tdOJAAAAABJRU5ErkJggg==" width=50px height=50px border="0" alt=""></a>
+<!--                                   style = "height: 100%; margin-left: 0" width=50px height=50px border="0"  -->
+
+        <div class="search_field_emp" >
+            <i class="search_name_product"></i>
+            <input class="search_field_emp" id="nameInputEmployee"
+                   onkeyup="searchByNameEmployee()"
+                   name="name_search" type="search" placeholder="Наименование товара"/>
+        </div>
+        <a href="search#tab_search" class="tabs_item"><img src="data:image/png;base64,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" width=50px height=50px border="0" alt=""></a>
+<!--                                   style = "height: 100%; margin-left: 70%" width="50" height="50" border="0" -->
+
+        <a href="/login" class="tabs_item" style="width: 50px;height: 50px; right: 0%;">
+            <span >Вход</span>
+        </a>
+<!--                style = "height: 100%; margin-right: 0"-->
+
+
+
+    </nav>
+</header>
+</div>
