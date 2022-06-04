@@ -1,7 +1,7 @@
 package company.controller;
 
-import company.entity.User;
-import company.repository.UserRepository;
+import company.entity.User.User;
+import company.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/userlist")
 public class UserController {
     @Autowired
-    private  UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping
     public String userList (Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        return "userList";
+        model.addAttribute("users", userService.allUsers());
+        return "userlist";
     }
     @GetMapping({"user"})
     public String userEditForm (@PathVariable User user, Model model) {

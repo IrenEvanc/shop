@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <!--    <meta charset="UTF-8">-->
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
@@ -20,10 +20,22 @@
 
 <form th:action="@{/registration}" method="post" class="entry_form">
     <div class="form_row"><label> Login :
-        <input type="text" name="username"/> </label>
+        <input type="text" id="username" name="username"/> </label>
+    </div>
+    <div th:if="${usernameError}" class="alert alert-error">
+        [[${usernameError}]]
     </div>
     <div class="form_row"><label> Password:
-        <input type="password" name="password"/> </label>
+        <input type="password" id="password" name="password"/> </label>
+    </div>
+    <div class="form_row"><label> passwordConfirm:
+        <input type="password" id="passwordConfirm" name="passwordConfirm"/>
+        <div th:if="${passwordError}" class="alert alert-error">
+            [[${passwordError}]]
+        </div>
+<!--        <form:errors path="password"></form:errors>-->
+<!--        [[${passwordError}]]-->
+    </label>
     </div>
     <div class="form-actions">
         <input type="submit" value="Sign In" class="btn"/>

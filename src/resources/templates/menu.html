@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" type="text/css" href="box.css"/>
 
     <title> Список пользователей </title>
 </head>
 <body>
 <div class="wrapper">
-    <div th:switch="${users}" class="contents">
-        <div class="tabs">
+    <div th:switch="${categories}" class="contents">
+        <div >
 
             <header th:insert="blocks/header :: header"></header>
 
@@ -19,72 +21,122 @@
 
     <div>
 
-        <form action="" method="get">
-            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="idInputEmployee"
-                                                                            onkeyup="searchByIdEmployee()"
-                                                                            name="id_search" type="search" placeholder="ID"></div>
-            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="nameInputEmployee"
-                                                                            onkeyup="searchByNameEmployee()"
-                                                                            name="name_search" type="search" placeholder="Пользователь"></div>
-            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="postInputEmployee"
-                                                                            onkeyup="searchByPostEmployee()"
-                                                                            name="post_search" type="search" placeholder="Пароль"></div>
-<!--            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="projectInputEmployee"-->
-<!--                                                                            onkeyup="searchByProjectEmployee()"-->
-<!--                                                                            name="project_search" type="search" placeholder="Проект"></div>-->
+<!--        <form action="" method="get">-->
+<!--            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="idInputEmployee"-->
+<!--                                                                            onkeyup="searchByIdEmployee()"-->
+<!--                                                                            name="id_search" type="search" placeholder="ID"></div>-->
+<!--            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="nameInputEmployee"-->
+<!--                                                                            onkeyup="searchByNameEmployee()"-->
+<!--                                                                            name="name_search" type="search" placeholder="Пользователь"></div>-->
+<!--            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="postInputEmployee"-->
+<!--                                                                            onkeyup="searchByPostEmployee()"-->
+<!--                                                                            name="post_search" type="search" placeholder="Пароль"></div>-->
+<!--&lt;!&ndash;            <div class="search_field_emp"><i class="search_name"></i><input class="search_field_emp" id="projectInputEmployee"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                            onkeyup="searchByProjectEmployee()"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                            name="project_search" type="search" placeholder="Проект"></div>&ndash;&gt;-->
 
-        </form>
+<!--        </form>-->
         <div class="table">
             <div>
-        <table id="employeeTable" class="table">
-            <thead>
-            <tr>
-                <th onclick="sortTableEmployee(0)" class="id_employee">ID</th>
-                <th onclick="sortTableEmployee(1)" class="name_employee">Пользователь</th>
-                <th onclick="sortTableEmployee(2)" class="status_employee">Пароль</th>
-<!--                <th onclick="sortTableEmployee(3)" class="post_employee">Должность</th>-->
-<!--                <th onclick="sortTableEmployee(4)" class="project_employee">Проект</th>-->
+<!--        <table id="employeeTable" class="table">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th onclick="sortTableEmployee(0)" class="id_employee">ID</th>-->
+<!--                <th onclick="sortTableEmployee(1)" class="name_employee">Пользователь</th>-->
+<!--                <th onclick="sortTableEmployee(2)" class="status_employee">Пароль</th>-->
+<!--&lt;!&ndash;                <th onclick="sortTableEmployee(3)" class="post_employee">Должность</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                <th onclick="sortTableEmployee(4)" class="project_employee">Проект</th>&ndash;&gt;-->
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user:${users}">
-                <td><a class="not_line_href"
-                       th:href="'/info/employeeit/'+ ${user.id}"><i
-                        class="not_line_href" th:text="${user.id}"></i></a></td>
-                <td><a class="not_line_href"
-                       th:href="'/info/employeeit/'+ ${user.id}"><i
-                        class="not_line_href"
-                        th:text="${user.username} "></i></a>
-                </td>
-                <td><a class="not_line_href"
-                       th:href="'/info/employeeit/'+ ${user.id}"><i
-                        class="not_line_href"
-                        th:text="${user.password}"></i></a></td>
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="category:${categories}">-->
 <!--                <td><a class="not_line_href"-->
-<!--                       th:href="'/info/employeeit/'+ ${user.id}"><i-->
-<!--                        class="not_line_href"-->
-<!--                        th:text="${employeeit.employee.post.name}"></i></a></td>-->
-<!--                <td><a class="not_line_href"-->
-<!--                       th:href="'/info/employeeit/'+ ${employeeit.id}"><i-->
-<!--                        class="not_line_href"-->
-<!--                        th:text="${employeeit.project.projectName}"></i></a></td>-->
+<!--                       th:href="'/info/employeeit/'+ ${category.id}"><i-->
+<!--                        class="not_line_href" th:text="${category.getName()}"></i></a></td>-->
+<!--&lt;!&ndash;                <td><a class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="'/info/employeeit/'+ ${user.id}"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:text="${user.username} "></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                <td><a class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="'/info/employeeit/'+ ${user.id}"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:text="${user.password}"></i></a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                <td><a class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="'/info/employeeit/'+ ${user.id}"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:text="${employeeit.employee.post.name}"></i></a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                <td><a class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                       th:href="'/info/employeeit/'+ ${employeeit.id}"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                        class="not_line_href"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:text="${employeeit.project.projectName}"></i></a></td>&ndash;&gt;-->
 
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+            <ul  class="not_line_href">
+            <li th:each="category:${categories}">
+            <ul>
+            <li th:text="${category.getName()}"><a ></a></li>
+            </ul>
+                <select class="form-control" th:id="'subcategory'+${category.id}" th:name="subcategory">
+                    <option th:each="subcategory : ${subcategories}"
+                            th:value="${subcategory}"
+                            th:text="${subcategory.getName()}"
+                            th:selected="${category.isSelectedSubcategory(subcategory)}">
+                    </option>
+                </select>
+            </li>
+<!--            -->
+<!--                <li th:each="category:${categories}">-->
+<!--                    <ul>-->
+<!--                        <li th:text="${category.getSubcategories()}"><a ></a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--               </ul>-->
+
+            </ul>
+            </div>
 </div>
         </div>
     </div>
-    </div>
+<!--    </div>-->
 
-            <div id="tab_search" class="tabs_block"></div>
-            <div id="tab_login" class="tabs_block"></div>
-</div>
+<!--            <div id="tab_search" class="tabs_block"></div>-->
+<!--            <div id="tab_login" class="tabs_block"></div>-->
+<!--</div>-->
     </div>
 </div>
 <script src="/popup.js/"></script>
-
+<!--<style>-->
+<!--    .submenu {-->
+<!--        position: absolute;-->
+<!--        z-index: 5;-->
+<!--        min-width: 200px;-->
+<!--        background: white;-->
+<!--        border-top: 1px solid #CBCBCC;-->
+<!--        border-left: 1px solid #CBCBCC;-->
+<!--        border-right: 1px solid #CBCBCC;-->
+<!--        visibility: hidden;-->
+<!--        opacity: 0;-->
+<!--        transform-origin: 0% 0%;-->
+<!--        transform: rotateX(-90deg);-->
+<!--        transition: .3s linear;-->
+<!--    }-->
+<!--    .submenu li {position: relative;}-->
+<!--    .submenu li a {-->
+<!--        color: black;-->
+<!--        padding: 10px 20px;-->
+<!--        font-size: 13px;-->
+<!--        border-bottom: 1px solid #CBCBCC;-->
+<!--    }-->
+<!--    .submenu .submenu {-->
+<!--        position: absolute;-->
+<!--        left: 100%;-->
+<!--        top: -1px;-->
+<!--        transition: .3s linear;-->
+<!--    }-->
+<!--</style>-->
 </body>
 </html>

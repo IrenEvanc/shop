@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html"
+      sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" type="text/css" href="/style.css/"/>-->
+    <title>Меню</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="contents">
+        <div class="tabs">
+
+<!--            <header th:insert="blocks/header :: header"></header>-->
+
+            <div class="tabs_body">
+                <div id="tab_menu" class="tabs_block">
+
+
+                                            <div class="search">
+                                                <img th:src="${user.getUser().getUserPhoto()}"
+                                                     style="width: 10%"
+                                                             alt="Avatar"
+                                                     class="avatar">
+                                                <p></p>
+                                                <input class="user_photo" type="file" name="user_photo"/>
+                                            </div>
+
+
+                        <div class="table_and">
+                            <table>
+
+                                <tbody>
+                                <tr>
+                                    <td>Здравствуйте, <i class="not_line_href" th:text="${user.username}"></i></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Фамилия: <i class="not_line_href" th:text="${user.getUser().getFathersName()}"> </i></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Имя: <i class="not_line_href" th:text="${user.getUser().getName()}"> </i></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Отчество: <i class="not_line_href" th:text="${user.getUser().getSurname()}"> </i></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Телефон: <i class="not_line_href" th:text="${user.getUser().getPhone()}"> </i></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Почта: <i class="not_line_href" th:text="${user.getUser().getEmail()}"> </i></td>
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+
+
+<!--                            <div class="slideshow-container">-->
+<!--                                <div class="mySlides">-->
+<!--                                    <q>То, что не начато сегодня – не закончить завтра.</q>-->
+<!--                                    <p class="author">- Johann Wolfgang von Goethe</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            <div id="tab_task" class="tabs_block"></div>-->
+<!--            <div id="tab_employee" class="tabs_block"></div>-->
+<!--            <div id="tab_candidate" class="tabs_block"></div>-->
+<!--            <div id="tab_team" class="tabs_block"></div>-->
+        </div>
+    </div>
+<!--</div>-->
+
+<!--<script>-->
+<!--    var img = "scr"-->
+<!--    alert(img);-->
+<!--</script>-->
+<a href="/">Вернуться на главную страницу</a>
+<form th:if="${user.getUser().getRoles().size()>1}">
+<a href="/userlist">Управление данными пользователя</a>
+</form>
+</body>
+</html>

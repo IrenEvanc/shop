@@ -1,5 +1,7 @@
-package company.entity;
+package company.entity.User;
 
+import company.entity.Basket;
+import company.entity.Check;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +37,7 @@ public class User implements Serializable, UserDetails {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private List<Check> checks = new ArrayList<Check>();
 
     @Lob @Type(type = "org.hibernate.type.TextType")
@@ -55,16 +57,40 @@ public class User implements Serializable, UserDetails {
     @Column(name = "phone")
     private String phone;
 
+    @Lob@Type(type = "org.hibernate.type.TextType")
+    @Column(name = "user_photo")
+    private String userPhoto;
+
     @Lob @Type(type = "org.hibernate.type.BooleanType")
     @Column(name = "active")
     private boolean active;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable (name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated (EnumType.STRING)
     private Set<Role> roles;
 
     public User() {}
+
+    public User(String username, String password, Basket basket, List<Check> checks, String surname, String name, String fathersName, String email, String phone, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.basket = basket;
+        this.checks = checks;
+        this.surname = surname;
+        this.name = name;
+        this.fathersName = fathersName;
+        this.email = email;
+        this.phone = phone;
+        this.roles = roles;
+    }
+
+//    public User(long id, String username, String password, Set<Role> roles) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.roles = roles;
+//    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -195,6 +221,14 @@ public class User implements Serializable, UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
     }
 
 

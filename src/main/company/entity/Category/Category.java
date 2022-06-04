@@ -1,4 +1,4 @@
-package company.entity;
+package company.entity.Category;
 
 import org.hibernate.annotations.Type;
 
@@ -19,8 +19,20 @@ public class Category implements Serializable {
     @Column(name = "name")
     private  String name;
 
-    @OneToMany(mappedBy = "category", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
-    private List<Product> products;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "category_subcategory",
+            joinColumns = {@JoinColumn(name = "category_id", referencedColumnName="id")},
+            inverseJoinColumns = {@JoinColumn(name = "subcategory_id", referencedColumnName="id")}
+    )
+    private List<Subcategory> subcategories = new ArrayList<>();
+//    @OneToMany(mappedBy = "category", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+//    private List<Product> products;
+
+
 
     public Long getId() {
         return id;
@@ -30,26 +42,26 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public Category (String name, ArrayList<Product> products) {
-        this.name = name;
-        this.products = products;
-    }
+//    public Category (String name, ArrayList<Product> products) {
+//        this.name = name;
+//        this.products = products;
+//    }
 
     public Category () {}
     public String getName() {
         return name;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
+//    public List<Product> getProducts() {
+//        return products;
+//    }
 
 
     @Override
     public String toString() {
         return "Category{" +
                 "name='" + name + '\'' +
-                ", products=" + products +
+//                ", products=" + products +
                 '}';
     }
 
@@ -57,9 +69,22 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
     }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+
+//    public boolean isSelectedSubcategory(Subcategory subcategory){
+//        return subcategory.getId().equals(status.getId());
+//    }
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
+
+
 }
 
 //    public static ArrayList<Product>  addProductToCategory () {

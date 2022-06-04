@@ -1,52 +1,42 @@
 package company.controller;
 
-import company.entity.Basket;
-import company.entity.Role;
-import company.entity.User;
-import company.repository.BasketRepository;
-import company.repository.UserRepository;
+import company.entity.User.User;
+import company.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collections;
+import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
     @Autowired
-    private UserRepository userRepository;
-    private BasketRepository basketRepository;
+    private UserService userService;
 
-
-//    @GetMapping("/login")
-//    public String get(Model model) {
-//        model.addAttribute("title", "Форма входа");
-//        return "login";
-//    }
 
     @GetMapping("/registration")
-    public String registration () {
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
         return "registration";
     }
 
     @PostMapping ("/registration")
-    public String addUser(User user,  Model model) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-//            model.put("message", "User exists!");
-            System.out.println("Пользователь уже существует");
-            return  "/registration";
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
         }
-        user.setActive(true);
-        Basket basket = new Basket();
-
-        user.setBasket(basket);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
-
-//        basketRepository.save(basket);
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+            model.addAttribute("passwordError", "Пароли не совпадают");
+            return "registration";
+        }
+        if (!userService.saveUser(userForm)){
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            return "registration";
+        }
         return "redirect:/login";
     }
 }

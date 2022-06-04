@@ -1,5 +1,6 @@
 package company.entity;
 
+import company.entity.Category.Subcategory;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -28,12 +29,15 @@ public class Product implements Serializable {
     private double rating;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @JoinColumn(name = "subcategory_id", nullable = false)
+    private Subcategory subcategories;
 
-    @ManyToOne
-    @JoinColumn(name = "basket_id", nullable = false)
-    private Basket basket;
+//    @ManyToMany(mappedBy = "product")
+//    private Set<Basket> basket=new HashSet<>();
+
+//    @ManyToOne
+//    @JoinColumn(name = "basket_id", nullable = false)
+//    private Basket basket;
 
 //    public  Product (String name, double price, double rating) {
 //        this.name = name;
@@ -77,21 +81,30 @@ public class Product implements Serializable {
         this.rating = rating;
     }
 
-    public Category getCategory() {
-        return category;
+    public Subcategory getSubcategories() {
+        return subcategories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setSubcategories(Subcategory subcategories) {
+        this.subcategories = subcategories;
     }
 
-    public Basket getBasket() {
-        return basket;
-    }
 
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
+//    public Set<Basket> getBasket() {
+//        return basket;
+//    }
+//
+//    public void setBasket(Set<Basket> basket) {
+//        this.basket = basket;
+//    }
+
+//    public Basket getBasket() {
+//        return basket;
+//    }
+//
+//    public void setBasket(Basket basket) {
+//        this.basket = basket;
+//    }
 
 //
 //    @Override

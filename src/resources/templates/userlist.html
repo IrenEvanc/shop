@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+<!--    <link rel="stylesheet" type="text/css" href="style.css"/>-->
 
     <title> Список пользователей </title>
 </head>
@@ -12,7 +13,7 @@
     <div th:switch="${users}" class="contents">
         <div class="tabs">
 
-            <header th:insert="blocks/header :: header"></header>
+<!--            <header th:insert="blocks/header :: header"></header>-->
 
             <div class="tabs_body">
                 <div id="tab_menu" class="tabs_block">
@@ -42,7 +43,7 @@
                                         <th onclick="sortTableEmployee(0)" class="id_employee">ID</th>
                                         <th onclick="sortTableEmployee(1)" class="name_employee">Пользователь</th>
                                         <th onclick="sortTableEmployee(2)" class="status_employee">Пароль</th>
-                                        <!--                <th onclick="sortTableEmployee(3)" class="post_employee">Должность</th>-->
+                                        <th onclick="sortTableEmployee(3)" class="post_employee">Роль</th>
                                         <!--                <th onclick="sortTableEmployee(4)" class="project_employee">Проект</th>-->
 
                                     </tr>
@@ -60,11 +61,13 @@
                                         <td><a class="not_line_href"
                                                th:href="'/info/user/'+ ${user.id}"><i
                                                 class="not_line_href"
-                                                th:text="${user.password}"></i></a></td>
-                                                        <td><a class="not_line_href"
-                                                               th:href="'/info/user/'+ ${user.id}"><i
-                                                                class="not_line_href"
-                                                                th:text="${user.roles}"></i></a></td>
+                                                th:text="${user.password}"></i></a>
+                                        </td>
+                                        <td><a class="not_line_href"
+                                               th:href="'/info/user/'+ ${user.id}"><i
+                                                class="not_line_href"
+                                                th:text="${user.roles}"></i></a>
+                                        </td>
                                         <!--                <td><a class="not_line_href"-->
                                         <!--                       th:href="'/info/employeeit/'+ ${employeeit.id}"><i-->
                                         <!--                        class="not_line_href"-->

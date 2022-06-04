@@ -1,12 +1,13 @@
-package company.entity;
+package company.entity.User;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    USER, ADMIN;
+    USER,
+    ADMIN;
 
     @Override
     public String getAuthority() {
-        return name();
+        return "ROLE_"+ name();
     }
 }

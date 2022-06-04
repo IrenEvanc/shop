@@ -4,10 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Table(name = "Basket")
@@ -21,8 +18,20 @@ public class Basket implements  Serializable {
 //    @OneToOne(optional = false, mappedBy="basket", cascade=CascadeType.ALL)
 //    private User user;
 
-    @OneToMany(mappedBy = "basket", cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
-    private List<Product> products;
+//    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "basket_products",
+//            joinColumns = @JoinColumn (name = "basket_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id")
+//    )
+//    private Set<Product> products = new HashSet<>();
+//    public void addProduct(Product product){
+//        this.products.add(product);
+//        product.getBasket().add(this);
+//    }
+//    public void removeProduct(Product product){
+//        this.products.remove(product);
+//        product.getBasket().remove(this);
+//    }
 
     @ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable (name = "user_basket",
@@ -30,6 +39,10 @@ public class Basket implements  Serializable {
     @MapKeyJoinColumn(name = "product_id")
 
     private Map<Product, Number> productsInBasket = new HashMap<>() ;
+
+    @OneToMany (fetch=FetchType.EAGER)
+    @JoinColumn(name = "basket_id")
+    private List<Check> checks = new ArrayList<>();
 
 
 //    private HashMap<Product, Number> productsInBasket;
@@ -69,13 +82,7 @@ public class Basket implements  Serializable {
 //        this.user = user;
 //    }
 
-    public List<Product> getProducts() {
-        return products;
-    }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 
     public Map<Product, Number> getProductsInBasket() {
         return productsInBasket;
@@ -84,6 +91,14 @@ public class Basket implements  Serializable {
     public void setProductsInBasket(Map<Product, Number> productsInBasket) {
         this.productsInBasket = productsInBasket;
     }
+
+//    public Set<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Set<Product> products) {
+//        this.products = products;
+//    }
 }
 
 
